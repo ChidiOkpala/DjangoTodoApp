@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row mt-4">
+    <div class="col">
+      <h1>Add Item</h1>
+      <form action="add_todo/" method="post" class="form-inline d-flex">
+        {% csrf_token %}
+        <input type="text" name="content" placeholder="Type here..." class="form-control mb-2 me-2" required>
+        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col">
+      <ul class="list-group">
+        {% for todo_item in todo_items %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ todo_item.text }}</span>
+            <form action="delete_todo/{{todo_item.id}}/" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endblock content %}
